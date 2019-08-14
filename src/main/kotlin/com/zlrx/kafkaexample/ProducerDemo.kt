@@ -19,6 +19,8 @@ fun main() {
     producer.sendData("Hello world7", "b")
     producer.sendData("Hello world8", "b")
     producer.sendData("Hello world9", "c")
+    producer.sendData("Hello world10", "d")
+    producer.sendData("Hello world11", "e")
     producer.flushAndClose()
 }
 
