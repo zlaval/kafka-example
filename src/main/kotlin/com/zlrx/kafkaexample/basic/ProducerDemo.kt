@@ -1,4 +1,4 @@
-package com.zlrx.kafkaexample
+package com.zlrx.kafkaexample.basic
 
 import org.apache.kafka.clients.producer.KafkaProducer
 import org.apache.kafka.clients.producer.ProducerConfig
