@@ -27,9 +27,10 @@ class TwitterProducer {
 
         val host = HttpHosts(Constants.STREAM_HOST)
         val endpoint = StatusesFilterEndpoint()
-        val terms = Lists.newArrayList<String>("kafka")
+        val terms = Lists.newArrayList<String>("kafka", "bitcoin", "java", "usa", "sport", "paintball", "soccer")
         endpoint.trackTerms(terms)
         val auth = OAuth1("", "", "", "")
+
         return ClientBuilder()
             .name("TwitterApp")
             .hosts(host)
@@ -73,6 +74,16 @@ class TwitterProducer {
         properties.setProperty(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "localhost:29092")
         properties.setProperty(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer::class.qualifiedName)
         properties.setProperty(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer::class.qualifiedName)
+
+        properties.setProperty(ProducerConfig.ENABLE_IDEMPOTENCE_CONFIG, "true")
+        properties.setProperty(ProducerConfig.ACKS_CONFIG, "all")
+        properties.setProperty(ProducerConfig.RETRIES_CONFIG, Integer.MAX_VALUE.toString())
+        properties.setProperty(ProducerConfig.MAX_IN_FLIGHT_REQUESTS_PER_CONNECTION, "5")
+
+        properties.setProperty(ProducerConfig.COMPRESSION_TYPE_CONFIG, "snappy")
+        properties.setProperty(ProducerConfig.BATCH_SIZE_CONFIG, Integer.toString(32 * 1024))
+        properties.setProperty(ProducerConfig.LINGER_MS_CONFIG, "20")
+
         return KafkaProducer(properties)
     }
 
