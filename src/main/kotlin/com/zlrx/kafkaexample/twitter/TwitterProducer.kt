@@ -56,7 +56,7 @@ class TwitterProducer {
 
             val msg = msgQueue.poll()
             if (msg != null) {
-                val record = ProducerRecord<String, String>("tweets", null, msg)
+                val record = ProducerRecord<String, String>("twitter", null, msg)
                 kafkaProducer.send(record) { metadata, exception ->
                     if (exception != null) {
                         println(exception)
